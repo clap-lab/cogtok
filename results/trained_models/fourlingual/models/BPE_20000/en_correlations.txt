@@ -1,0 +1,15 @@
+Correlations for WORDS: 
+              Length  Num_Splits  Wordiness  Reading_Time  Accuracy
+Length          1.00        0.48       0.35          0.22      0.06
+Num_Splits      0.48        1.00      -0.62          0.33     -0.16
+Wordiness       0.35       -0.62       1.00         -0.16      0.23
+Reading_Time    0.22        0.33      -0.16          1.00     -0.60
+Accuracy        0.06       -0.16       0.23         -0.60      1.00
+
+Correlations for NON-WORDS: 
+              Length  Num_Splits  Wordiness  Reading_Time  Accuracy
+Length          1.00        0.58       0.42          0.31     -0.01
+Num_Splits      0.58        1.00      -0.46          0.01      0.11
+Wordiness       0.42       -0.46       1.00          0.31     -0.13
+Reading_Time    0.31        0.01       0.31          1.00     -0.60
+Accuracy       -0.01        0.11      -0.13         -0.60      1.00
