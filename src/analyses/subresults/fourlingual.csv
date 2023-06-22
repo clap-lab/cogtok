@@ -1,0 +1,49 @@
+﻿Model,Correlation,Language,Category,Metric,Type
+mono_50k,-0.35,English,Words,Reading Time,monolingual
+mono_50k,0.48,English,Words,Accuracy,monolingual
+mono_50k,0.43,English,Non-Words,Reading Time,monolingual
+mono_50k,-0.21,English,Non-Words,Accuracy,monolingual
+multi_50k,-0.24,English,Words,Reading Time,fourlingual
+multi_50k,0.32,English,Words,Accuracy,fourlingual
+multi_50k,0.36,English,Non-Words,Reading Time,fourlingual
+multi_50k,-0.16,English,Non-Words,Accuracy,fourlingual
+multi_70k,-0.27,English,Words,Reading Time,fourlingual
+multi_70k,0.36,English,Words,Accuracy,fourlingual
+multi_70k,0.37,English,Non-Words,Reading Time,fourlingual
+multi_70k,-0.17,English,Non-Words,Accuracy,fourlingual
+mono_50k,-0.35,Dutch,Words,Reading Time,monolingual
+mono_50k,0.45,Dutch,Words,Accuracy,monolingual
+mono_50k,0.36,Dutch,Non-Words,Reading Time,monolingual
+mono_50k,-0.16,Dutch,Non-Words,Accuracy,monolingual
+multi_50k,-0.25,Dutch,Words,Reading Time,fourlingual
+multi_50k,0.27,Dutch,Words,Accuracy,fourlingual
+multi_50k,0.29,Dutch,Non-Words,Reading Time,fourlingual
+multi_50k,-0.13,Dutch,Non-Words,Accuracy,fourlingual
+multi_70k,-0.27,Dutch,Words,Reading Time,fourlingual
+multi_70k,0.3,Dutch,Words,Accuracy,fourlingual
+multi_70k,0.3,Dutch,Non-Words,Reading Time,fourlingual
+multi_70k,-0.14,Dutch,Non-Words,Accuracy,fourlingual
+mono_50k,-0.22,French,Words,Reading Time,monolingual
+mono_50k,0.37,French,Words,Accuracy,monolingual
+mono_50k,0.29,French,Non-Words,Reading Time,monolingual
+mono_50k,-0.07,French,Non-Words,Accuracy,monolingual
+multi_50k,-0.17,French,Words,Reading Time,fourlingual
+multi_50k,0.28,French,Words,Accuracy,fourlingual
+multi_50k,0.19,French,Non-Words,Reading Time,fourlingual
+multi_50k,-0.04,French,Non-Words,Accuracy,fourlingual
+multi_70k,-0.18,French,Words,Reading Time,fourlingual
+multi_70k,0.3,French,Words,Accuracy,fourlingual
+multi_70k,0.24,French,Non-Words,Reading Time,fourlingual
+multi_70k,-0.07,French,Non-Words,Accuracy,fourlingual
+mono_50k,-0.32,Spanish,Words,Reading Time,monolingual
+mono_50k,0.48,Spanish,Words,Accuracy,monolingual
+mono_50k,0.4,Spanish,Non-Words,Reading Time,monolingual
+mono_50k,-0.17,Spanish,Non-Words,Accuracy,monolingual
+multi_50k,-0.25,Spanish,Words,Reading Time,fourlingual
+multi_50k,0.35,Spanish,Words,Accuracy,fourlingual
+multi_50k,0.24,Spanish,Non-Words,Reading Time,fourlingual
+multi_50k,-0.16,Spanish,Non-Words,Accuracy,fourlingual
+multi_70k,-0.29,Spanish,Words,Reading Time,fourlingual
+multi_70k,0.39,Spanish,Words,Accuracy,fourlingual
+multi_70k,0.25,Spanish,Non-Words,Reading Time,fourlingual
+multi_70k,-0.16,Spanish,Non-Words,Accuracy,fourlingual

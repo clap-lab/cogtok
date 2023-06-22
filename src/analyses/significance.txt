@@ -1,0 +1,9 @@
+Not significant correlations (p>=0.05)
+
+nonwords nl Model_gpt2 accuracy p=0.12
+nonwords fr Model_xlm-roberta-base accuracy p=0.09
+
+Not significant correlations (p>=0.01)
+nonwords nl Model_gpt2 accuracy p=0.12
+nonwords fr Model_xlm-roberta-base accuracy p=0.09
+words es Model_WPC_1000 reading time p=0.02

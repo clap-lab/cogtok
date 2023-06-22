@@ -7,8 +7,8 @@ import os
 from ast import literal_eval
 from scipy.stats import pearsonr
 
-evalpath = "../data/eval/"
-resultpath = "../results/"
+evalpath = "../../data/eval/"
+resultpath = "../../results/"
 outdir = resultpath + "results_overview/"
 
 # Collect all outputs of all trained trained_models in a single file
@@ -18,7 +18,7 @@ def collect_all_outputs(langs):
 
         # Note: we read in the eval data again because I made a change in the pre-processing of Spanish and the columns for reading time and accuracy in output.csv are slightly outdated [for Spanish]. If would have been cleaner not to add them to the output file from the start
         evaldata = pd.read_csv(open(evalpath + lang + ".txt", "r"), delimiter="\t")
-        modelpath = resultpath  + lang +"/trained_models/"
+        modelpath = resultpath   +"trained_models/"+ lang +"/models/"
         models = []
         outputs = {key: [] for key in evaldata["spelling"]}
 
@@ -56,9 +56,10 @@ def collect_all_outputs(langs):
         evaldata.to_csv(outdir  + lang + ".csv", index = False)
 
 langs = ["en", "nl", "fr", "es"]
-collect_all_outputs(langs)
+#collect_all_outputs(langs)
 
 # Evaluate with lexical decision data
+print("Not significant correlations at p<0.01")
 for lang in langs:
 
     evaldata = pd.read_csv(resultpath + "results_overview/" + lang + ".csv")
@@ -69,7 +70,7 @@ for lang in langs:
     datasets = [words, nonwords]
     all_results = {}
     for category in ["words", "nonwords"]:
-        print(category)
+
         if category == "words":
             dataset = datasets[0]
         else:
@@ -96,29 +97,33 @@ for lang in langs:
                 wordiness = [1-(len(splits[i])/len(str(tokens[i]))) for i in range(max)]
 
                 # correlation
-                corr1 = pearsonr(num_splits, rts)[0]
-                corr2 = pearsonr(num_splits, accs)[0]
-                corr3 = pearsonr(wordiness, rts)[0]
-                corr4 = pearsonr(wordiness, accs)[0]
+                corr1, p1 = pearsonr(num_splits, rts)
+                corr2, p2 = pearsonr(num_splits, accs)
+                corr3, p3 = pearsonr(wordiness, rts)
+                corr4, p4 = pearsonr(wordiness, accs)
 
                 results = [model, "{:.2f}".format(corr1) , "{:.2f}".format(corr2),"{:.2f}".format(corr3), "{:.2f}".format(corr4)]
                 category_results.append(results)
-                print(results)
+                #print(results)
+                if p3 >= 0.05:
+                    print("not significant", category, lang, model, "reading time", p3)
+                if p4 >= 0.05:
+                    print("not significant",category, lang, model, "accuracy", p4)
         all_results[category] = category_results
 
-    with open(outdir +  lang + "_correlations.csv", "w") as outfile:
-        for category in all_results.keys():
-            outfile.write(category)
-            outfile.write("\n")
-            outfile.write("Model, Vocab_Size, NumSplits_RT, NumSplits_Acc, Chunkability_RT, Chunkability_Acc\n")
-            for line in all_results[category]:
-                modelname, result1, result2, result3, result4 = line
-                try:
-                    _, name, size = modelname.split("_")
-                except ValueError:
-                    _, name = modelname.split("_")
-                    size = "default"
-
-                outfile.write(",".join([name, size, result1, result2, result3, result4]))
-                outfile.write("\n")
+    # with open(outdir +  lang + "_correlations.csv", "w") as outfile:
+    #     for category in all_results.keys():
+    #         outfile.write(category)
+    #         outfile.write("\n")
+    #         outfile.write("Model, Vocab_Size, NumSplits_RT, NumSplits_Acc, Chunkability_RT, Chunkability_Acc\n")
+    #         for line in all_results[category]:
+    #             modelname, result1, result2, result3, result4 = line
+    #             try:
+    #                 _, name, size = modelname.split("_")
+    #             except ValueError:
+    #                 _, name = modelname.split("_")
+    #                 size = "default"
+    #
+    #             outfile.write(",".join([name, size, result1, result2, result3, result4]))
+    #             outfile.write("\n")
 
