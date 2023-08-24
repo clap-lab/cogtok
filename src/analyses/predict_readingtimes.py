@@ -26,6 +26,7 @@ def process_dataset(dataset, signal, model):
     splits = list(literal_eval(tokens) for tokens in dataset[model])
     feature = np.asarray([1 - (len(tokens) / len("".join(tokens))) for tokens in splits])
     feature = feature.reshape(-1, 1)
+
     return feature, measure
 
 def map_labels(low_threshold, high_threshold, features, labels):
@@ -48,6 +49,7 @@ def map_labels(low_threshold, high_threshold, features, labels):
 for lang in langs:
     print("\n\n")
     print(lang)
+
     evaldata = pd.read_csv(resultpath + "results_overview/" + lang + ".csv")
     evaldata = evaldata.dropna()
 
@@ -56,12 +58,16 @@ for lang in langs:
 
     datasets = [words, nonwords]
     all_results = {}
+
+    # Switch between words and nonwords
     for category in ["words", "nonwords"]:
         print(category)
         if category == "words":
             dataset = datasets[0]
         else:
             dataset = datasets[1]
+
+        # Prepare train and test
         seed = 1
         train, test = train_test_split(dataset, test_size=0.2)
         # using reading time here, alternative would be Accuracy
@@ -72,10 +78,11 @@ for lang in langs:
         low_threshold = np.percentile(train_signal, 25)
         high_threshold = np.percentile(train_signal, 75)
 
-        # Map labels into high (>high_threshold) and low(<low_threshold) and discard others
+        # Map labels into high (>high_threshold) and low(<low_threshold) and discard other instances
         train_features, train_labels = map_labels(low_threshold, high_threshold, train_features, train_signal)
         test_features, test_labels = map_labels(low_threshold, high_threshold, test_features, test_signal)
 
+        # Classify
         classifiers = [GaussianNB(), SVC(kernel="linear", C=0.025), KNeighborsClassifier(3)]
         for classifier in classifiers:
             classifier.fit(train_features, train_labels)
