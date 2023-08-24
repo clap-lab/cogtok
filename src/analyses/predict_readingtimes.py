@@ -1,93 +1,84 @@
 import pandas as pd
-import yaml
-import matplotlib.pyplot as plt
-import matplotlib
-from collections import defaultdict
-import os
 import numpy as np
-from sklearn import linear_model
-from sklearn.metrics import mean_squared_error, r2_score, explained_variance_score
-import seaborn as sns
+from ast import literal_eval
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
 
-# I did not finalize these analyses because there is not enough variance in the number of splits
-# It would only work if we would predict binary classes (e.g. high vs low reading time and accuracy)
-matplotlib.use("MacOSX")
-with open("config.yaml", "r") as f:
-    config = yaml.load(f, Loader=yaml.FullLoader)
-    print(config["vocab_size"])
-    outdir = config["outdir"]
+evalpath = "../../data/eval/"
+resultpath = "../../results/"
+outdir = resultpath + "results_overview/"
+langs = ["en", "nl", "fr", "es"]
+model = "Model_WPC_50000"
+signal = "accuracy"
 
-    languages = config["language"]
-    algorithms = ["BPE"]
-    vocab_sizes = [30000, 50000]
+def process_dataset(dataset, signal, model):
+    measure = dataset[signal].astype(float).to_numpy()
 
-# Calculate correlations and plot
-for language in languages:
-    print(language)
-    results = {}
-    measure1 = "Reading_Time"
-    measure2 = "Accuracy"
-    feature1 = "Num_Splits"
-    feature2 = "Chunkability"
-    length_correlations = {}
+    # Alternative: Trying out a length baseline
+    # stimuli = dataset["spelling"].to_numpy()
+    # measure = np.asarray([len(x) for x in stimuli ])
 
+    measure = measure.reshape(-1, 1)
 
-    for vocab_size in vocab_sizes:
-        print(vocab_size)
-        for alg in algorithms:
-            print(alg)
-            setting = alg + "_" + str(vocab_size)
-            modeldir = outdir + language + "/trained_models/" + setting + "/"
-            outputdata = pd.read_csv(modeldir + "output.csv", delimiter=",")
-            outputdata = outputdata.dropna()
-            test = outputdata.sample(n=1000)
-            nonwords = outputdata[outputdata["Lexicality"] == "N"]
-            words = outputdata[outputdata["Lexicality"] == "W"]
+    # focus on specific model
+    splits = list(literal_eval(tokens) for tokens in dataset[model])
+    feature = np.asarray([1 - (len(tokens) / len("".join(tokens))) for tokens in splits])
+    feature = feature.reshape(-1, 1)
+    return feature, measure
 
-            sns.lmplot(
-                data=test, x=measure1, y=feature2,
-                hue="Lexicality")
-            plt.show()
+def map_labels(low_threshold, high_threshold, features, labels):
+    # print("Original size:")
+    # print(len(features), len(labels))
+    reduced_features = []
+    reduced_labels = []
+    for i, l in enumerate(labels):
+        if l<low_threshold:
+            reduced_features.append(features[i])
+            reduced_labels.append("low")
+        if l > high_threshold:
+            reduced_features.append(features[i])
+            reduced_labels.append("high")
 
+    # print("Reduced size:")
+    # print(len(reduced_features), len(reduced_labels))
+    return reduced_features, reduced_labels
 
-            split = int(0.8*len(words))
+for lang in langs:
+    print("\n\n")
+    print(lang)
+    evaldata = pd.read_csv(resultpath + "results_overview/" + lang + ".csv")
+    evaldata = evaldata.dropna()
 
-            # Words
-            train_words = nonwords[0:split]
-            test_words = nonwords[split:]
+    words = evaldata[evaldata["lexicality"]=="W"]
+    nonwords = evaldata[evaldata["lexicality"]== "N"]
 
-            train_length_feature = [[len(x)] for x in train_words["Stimulus"]]
-            #train_features = [[x] for x in train_words[feature1]]
-            train_features = list(zip(train_words[feature2], train_words[feature2]))
-            #print(train_features)
-            test_features = [[x] for x in test_words[feature1]]
-            test_length_feature = [[len(x)] for x in test_words["Stimulus"]]
-            test_features = list(zip(test_words[feature2], test_words[feature2]))
-            train_labels = train_words[measure1].to_list()
-            test_labels = test_words[measure1].to_list()
+    datasets = [words, nonwords]
+    all_results = {}
+    for category in ["words", "nonwords"]:
+        print(category)
+        if category == "words":
+            dataset = datasets[0]
+        else:
+            dataset = datasets[1]
+        seed = 1
+        train, test = train_test_split(dataset, test_size=0.2)
+        # using reading time here, alternative would be Accuracy
+        train_features, train_signal = process_dataset(train, signal, model)
+        test_features, test_signal = process_dataset(test, signal, model)
 
-            model = linear_model.LinearRegression()
-            model.fit(train_features, train_labels)
-            training_predictions = model.predict(train_features)
-            print("Fit within training data: ")
-            print("Mean squared error: %.2f" % mean_squared_error(training_predictions, train_labels))
-            print("Explained Variance: %.2f" % explained_variance_score(training_predictions, train_labels))
-            print("R2: %.2f" % r2_score(training_predictions, train_labels))
+        # Determine thresholds on train set
+        low_threshold = np.percentile(train_signal, 25)
+        high_threshold = np.percentile(train_signal, 75)
 
-            predictions = model.predict(test_features)
-            print("Mean squared error: %.2f" % mean_squared_error(predictions, test_labels))
-            print("Explained Variance: %.2f" % explained_variance_score(predictions, test_labels))
-            print("R2: %.2f" % r2_score(predictions, test_labels))
-            plt.scatter(predictions, test_labels)
-            plt.title(language + ": " + setting)
-            plt.savefig(modeldir + "predictions.png")
+        # Map labels into high (>high_threshold) and low(<low_threshold) and discard others
+        train_features, train_labels = map_labels(low_threshold, high_threshold, train_features, train_signal)
+        test_features, test_labels = map_labels(low_threshold, high_threshold, test_features, test_signal)
 
-            print("Just Length: ")
-            model = linear_model.LinearRegression()
-            model.fit(train_length_feature, train_labels)
-            predictions = model.predict(test_length_feature)
-            print("Mean squared error: %.2f" % mean_squared_error(predictions, test_labels))
-            print("Explained Variance: %.2f" % explained_variance_score(predictions, test_labels))
-            print("R2: %.2f" % r2_score(predictions, test_labels))
-            print("\n\n")
+        classifiers = [GaussianNB(), SVC(kernel="linear", C=0.025), KNeighborsClassifier(3)]
+        for classifier in classifiers:
+            classifier.fit(train_features, train_labels)
+            score = classifier.score(test_features, test_labels)
+            print(score)
 
