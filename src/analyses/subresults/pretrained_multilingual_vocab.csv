@@ -1,25 +1,25 @@
-﻿Model,Correlation,Metric,Language,,,,
-Mono Bert,-0.36,Reading Time,English,,,,
-Mono Bert,-0.36,Reading Time,Dutch,,,,
-Mono Bert,-0.26,Reading Time,French,,,,
-Mono Bert,-0.32,Reading Time,Spanish,,,,
-Mono Bert,0.47,Accuracy,English,,,,
-Mono Bert,0.46,Accuracy,Dutch,,,,
-Mono Bert,0.37,Accuracy,French,,,,
-Mono Bert,0.46,Accuracy,Spanish,,,,
-X-Lingual Bert,-0.22,Reading Time,English,,,,
-X-Lingual Bert,-0.08,Reading Time,Dutch,,,,
-X-Lingual Bert,-0.09,Reading Time,French,,,,
-X-Lingual Bert,-0.14,Reading Time,Spanish,,,,
-X-Lingual Bert,0.26,Accuracy,English,,,,
-X-Lingual Bert,0.09,Accuracy,Dutch,,,,
-X-Lingual Bert,0.16,Accuracy,French,,,,
-X-Lingual Bert,0.26,Accuracy,Spanish,,,,
-Xlm-Roberta,-0.16,Reading Time,English,,,,
-Xlm-Roberta,-0.15,Reading Time,Dutch,,,,
-Xlm-Roberta,-0.04,Reading Time,French,,,,
-Xlm-Roberta,-0.15,Reading Time,Spanish,,,,
-Xlm-Roberta,0.23,Accuracy,English,,,,
-Xlm-Roberta,0.16,Accuracy,Dutch,,,,
-Xlm-Roberta,0.14,Accuracy,French,,,,
-Xlm-Roberta,0.28,Accuracy,Spanish,,,,
+﻿Model,Correlation,Metric,Language,Category
+Mono Bert,-0.36,Reading Time,English,Words
+Mono Bert,-0.36,Reading Time,Dutch,Words
+Mono Bert,-0.26,Reading Time,French,Words
+Mono Bert,-0.32,Reading Time,Spanish,Words
+Mono Bert,0.47,Accuracy,English,Words
+Mono Bert,0.46,Accuracy,Dutch,Words
+Mono Bert,0.37,Accuracy,French,Words
+Mono Bert,0.46,Accuracy,Spanish,Words
+X-Lingual Bert,-0.22,Reading Time,English,Words
+X-Lingual Bert,-0.08,Reading Time,Dutch,Words
+X-Lingual Bert,-0.09,Reading Time,French,Words
+X-Lingual Bert,-0.14,Reading Time,Spanish,Words
+X-Lingual Bert,0.26,Accuracy,English,Words
+X-Lingual Bert,0.09,Accuracy,Dutch,Words
+X-Lingual Bert,0.16,Accuracy,French,Words
+X-Lingual Bert,0.26,Accuracy,Spanish,Words
+Xlm-Roberta,-0.16,Reading Time,English,Words
+Xlm-Roberta,-0.15,Reading Time,Dutch,Words
+Xlm-Roberta,-0.04,Reading Time,French,Words
+Xlm-Roberta,-0.15,Reading Time,Spanish,Words
+Xlm-Roberta,0.23,Accuracy,English,Words
+Xlm-Roberta,0.16,Accuracy,Dutch,Words
+Xlm-Roberta,0.14,Accuracy,French,Words
+Xlm-Roberta,0.28,Accuracy,Spanish,Words

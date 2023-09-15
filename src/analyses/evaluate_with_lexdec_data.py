@@ -80,15 +80,15 @@ for lang in langs:
         correlation_with_wordiness = []
 
         category_results = []
+
+        # measurements
+        tokens = list(dataset["spelling"])
+        rts = list(dataset["rt"])
+        accs = list(dataset["accuracy"])
+
         for model in dataset:
 
             if model.startswith("Model"):
-
-
-                # measurements
-                tokens = list(dataset["spelling"])
-                rts = list(dataset["rt"])
-                accs = list(dataset["accuracy"])
 
                 # splits in model output
                 splits = list(dataset[model].apply(literal_eval))

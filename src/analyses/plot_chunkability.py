@@ -1,4 +1,4 @@
-# TODO: improve the plots for Figure 1, 2, 3 in the paper
+
 import pandas as pd
 import seaborn
 import matplotlib.pyplot as plt
