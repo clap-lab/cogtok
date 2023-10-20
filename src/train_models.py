@@ -1,8 +1,6 @@
 import pandas as pd
 import yaml
 import os
-import random
-from datasets import load_dataset
 from tokenization_util import train_tokenizer, Tokenizer, tokenize
 
 # # Step 1: Train tokenizer, store model
@@ -36,16 +34,6 @@ def tokenize_eval(modelfile, evaldata, outdir):
     results = results.round(decimals=2)
 
     results.to_csv(outdir  + "output.csv", index = False)
-
-# Optional: evaluate right away
-    # word_correlations = results[results["Lexicality"]=="W"].corr(numeric_only=True).round(decimals=2)
-    # nonword_correlations = results[results["Lexicality"] == "N"].corr(numeric_only=True).round(decimals=2)
-    # with open(outdir + "correlations.txt", "w") as corrfile:
-    #     corrfile.write("Correlations for WORDS: \n")
-    #     corrfile.write(word_correlations.to_string())
-    #     corrfile.write("\n\nCorrelations for NON-WORDS: \n")
-    #     corrfile.write(nonword_correlations.to_string())
-
 
 
 

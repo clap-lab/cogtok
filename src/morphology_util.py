@@ -1,6 +1,4 @@
 import pandas as pd
-import yaml
-import os
 import warnings
 from string import punctuation
 from tokenization_util import tokenize, Tokenizer
@@ -22,6 +20,8 @@ def read_derivational(language):
 
     return derivational
 
+
+# This is not used
 def read_inflectional(language):
     if len(language) != 3:
         raise ValueError("Morphynet uses three-letter language codes")
@@ -138,48 +138,6 @@ def evaluate_segmentation(language, trained_tokenizer):
     print("Same number of splits: {:.2f}".format(sum(split_match) / len(matched)))
     return segmentation
 
-# modelfile =  "../results/en/trained_models/BPE_50000/trained.json"
-# trained_tokenizer = Tokenizer.from_file(modelfile)
-# #evaluate_segmentation("eng", trained_tokenizer)
-# with open("config.yaml", "r") as f:
-#     config = yaml.load(f, Loader=yaml.FullLoader)
-#     outdir = config["outdir"]
-#     algorithms = config["tokenizers"]
-#     vocab_sizes = config["vocab_size"]
-#     os.makedirs(outdir, exist_ok=True)
-#     languages = config["language"]
-#     language_codes = {"en":"eng", "fr": "fra", "es": "spa"}
-#     # No dutch morphology data available in morphynet
-#     try:
-#         languages.remove("nl")
-#     except ValueError:
-#         pass
-#
-# for language in languages:
-#     print(language)
-#
-#     for alg in algorithms:
-#         print()
-#         for vocab_size in vocab_sizes:
-#             print(alg, str(vocab_size))
-#
-#
-#             monolingual_path = outdir + language + "/trained_models/" + alg + "_" + str(vocab_size)
-#             multilingual_path = outdir +  "crosslingual/trained_models/" + alg + "_" + str(vocab_size)
-#
-#             print("Monolingual")
-#             with open( monolingual_path+ "/vocabulary.txt", "r") as vocabfile:
-#                 vocab = vocabfile.read().splitlines()
-#                 covered, coverage = evaluate_derivational_coverage(language_codes[language], vocab)
-#             # with open(monolingual_path + "/trained.json", "r") as modelfile:
-#             #     evaluate_segmentation(language_codes[language], modelfile)
-#             print("Multilingual")
-#             with open(multilingual_path + "/vocabulary.txt", "r") as vocabfile:
-#                 vocab = vocabfile.read().splitlines()
-#                 covered, coverage = evaluate_derivational_coverage(language_codes[language], vocab)
-#                 # with open(multilingual_path + "/trained.json", "r") as modelfile:
-#                 #     evaluate_segmentation(language_codes[language], modelfile)
-#
 
 
 

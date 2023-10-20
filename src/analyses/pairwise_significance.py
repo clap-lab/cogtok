@@ -2,7 +2,7 @@
 import numpy as np
 from scipy.stats import t, norm
 from math import atanh, pow
-from numpy import tanh
+
 import pandas as pd
 import itertools
 
@@ -12,7 +12,7 @@ def rz_ci(r, n, conf_level = 0.95):
     moe = norm.ppf(1 - (1 - conf_level)/float(2)) * zr_se
     zu = atanh(r) + moe
     zl = atanh(r) - moe
-    return tanh((zl, zu))
+    return np.tanh((zl, zu))
 
 def independent_corr(xy, ab, n, n2 = None, twotailed=True, conf_level=0.95, method='fisher'):
     """
@@ -69,10 +69,10 @@ for lang in languages:
 
 
 # Calculate significance for pairwise comparison between models in Figure 1
-#results = pd.read_csv("subresults/chunkability.csv")
+results = pd.read_csv("subresults/chunkability.csv")
 
 # Uncomment to calculate significance for pairwise comparison between models in Figure 2
-results = pd.read_csv("subresults/pretrained_multilingual_vocab.csv")
+#results = pd.read_csv("subresults/pretrained_multilingual_vocab.csv")
 for language in set(results["Language"]):
     print("\n--------------------\n")
     print(language)

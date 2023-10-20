@@ -6,7 +6,7 @@ from sklearn import linear_model, preprocessing
 from sklearn.metrics import mean_squared_error, r2_score, explained_variance_score
 from sklearn.model_selection import train_test_split
 
-from wordfreq import word_frequency, zipf_frequency
+from wordfreq import zipf_frequency
 
 
 evalpath = "../../data/eval/"
@@ -44,7 +44,7 @@ def calculate_frequency(dataset, language):
     for word in dataset["spelling"]:
         frequencies.append(zipf_frequency(word, language))
     frequencies = np.asarray(frequencies).reshape(-1, 1)
-    print(frequencies[:50])
+    #print(frequencies[:50])
     return frequencies
 
 for lang in langs:
@@ -58,9 +58,9 @@ for lang in langs:
     words = evaldata[evaldata["lexicality"] == "W"]
 
     # Prepare train and test
-    seed = 1
+    seed = 42
     #train =words
-    train, test = train_test_split(words, test_size=0.2)
+    train, test = train_test_split(words, test_size=0.2, random_state=seed)
 
     for signal in ["rt", "accuracy"]:
         print()

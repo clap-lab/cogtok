@@ -3,7 +3,6 @@ from tokenizers import Tokenizer
 from tokenizers.models import BPE, Unigram, WordLevel, WordPiece
 from tokenizers.trainers import BpeTrainer, WordLevelTrainer, \
     WordPieceTrainer, UnigramTrainer
-import pandas as pd
 ## a pretokenizer to segment the text into words
 from tokenizers.pre_tokenizers import Whitespace
 

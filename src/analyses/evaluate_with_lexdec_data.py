@@ -5,7 +5,7 @@ import matplotlib
 from collections import defaultdict
 import os
 from ast import literal_eval
-from scipy.stats import pearsonr
+from scipy.stats import pearsonr, spearmanr, kendalltau
 
 evalpath = "../../data/eval/"
 resultpath = "../../results/"
@@ -44,7 +44,7 @@ def collect_all_outputs(langs):
 
     # This is a bit of a duplication but collecting the data in pandas directly costs too much memory
         columns = ["spelling"] + ["Model_" + x for x in models]
-        print(columns)
+
         outputdata = pd.DataFrame(columns=columns)
         outputdata["spelling"] = outputs.keys()
         for i, model in enumerate(models):
@@ -69,8 +69,9 @@ for lang in langs:
 
     datasets = [words, nonwords]
     all_results = {}
+    print(lang)
     for category in ["words", "nonwords"]:
-
+        print(category)
         if category == "words":
             dataset = datasets[0]
         else:
@@ -87,7 +88,7 @@ for lang in langs:
         accs = list(dataset["accuracy"])
 
         for model in dataset:
-
+            print(model)
             if model.startswith("Model"):
 
                 # splits in model output
@@ -102,14 +103,17 @@ for lang in langs:
                 corr3, p3 = pearsonr(wordiness, rts)
                 corr4, p4 = pearsonr(wordiness, accs)
 
+                corr3a, p3a =spearmanr(wordiness, rts)
+                corr3b, p3b = kendalltau(wordiness, rts)
+                print("{:.2f}".format(corr3), "{:.2f}".format(corr3a),"{:.2f}".format(corr3b), corr3a>corr3, corr3b>corr3)
                 results = [model, "{:.2f}".format(corr1) , "{:.2f}".format(corr2),"{:.2f}".format(corr3), "{:.2f}".format(corr4)]
                 category_results.append(results)
                 #print(results)
-                if p3 >= 0.05:
-                    print("not significant", category, lang, model, "reading time", p3)
-                if p4 >= 0.05:
-                    print("not significant",category, lang, model, "accuracy", p4)
-        all_results[category] = category_results
+        #         if p3 >= 0.05:
+        #             print("not significant", category, lang, model, "reading time", p3)
+        #         if p4 >= 0.05:
+        #             print("not significant",category, lang, model, "accuracy", p4)
+        # all_results[category] = category_results
 
     # with open(outdir +  lang + "_correlations.csv", "w") as outfile:
     #     for category in all_results.keys():
