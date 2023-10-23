@@ -1,8 +1,4 @@
 import pandas as pd
-import yaml
-import matplotlib.pyplot as plt
-import matplotlib
-from collections import defaultdict
 import os
 from ast import literal_eval
 from scipy.stats import pearsonr, spearmanr, kendalltau
@@ -16,7 +12,6 @@ def collect_all_outputs(langs):
     for lang in langs:
         print(lang)
 
-        # Note: we read in the eval data again because I made a change in the pre-processing of Spanish and the columns for reading time and accuracy in output.csv are slightly outdated [for Spanish]. If would have been cleaner not to add them to the output file from the start
         evaldata = pd.read_csv(open(evalpath + lang + ".txt", "r"), delimiter="\t")
         modelpath = resultpath   +"trained_models/"+ lang +"/models/"
         models = []
@@ -103,9 +98,6 @@ for lang in langs:
                 corr3, p3 = pearsonr(wordiness, rts)
                 corr4, p4 = pearsonr(wordiness, accs)
 
-                corr3a, p3a =spearmanr(wordiness, rts)
-                corr3b, p3b = kendalltau(wordiness, rts)
-                print("{:.2f}".format(corr3), "{:.2f}".format(corr3a),"{:.2f}".format(corr3b), corr3a>corr3, corr3b>corr3)
                 results = [model, "{:.2f}".format(corr1) , "{:.2f}".format(corr2),"{:.2f}".format(corr3), "{:.2f}".format(corr4)]
                 category_results.append(results)
                 #print(results)
@@ -115,19 +107,19 @@ for lang in langs:
         #             print("not significant",category, lang, model, "accuracy", p4)
         # all_results[category] = category_results
 
-    # with open(outdir +  lang + "_correlations.csv", "w") as outfile:
-    #     for category in all_results.keys():
-    #         outfile.write(category)
-    #         outfile.write("\n")
-    #         outfile.write("Model, Vocab_Size, NumSplits_RT, NumSplits_Acc, Chunkability_RT, Chunkability_Acc\n")
-    #         for line in all_results[category]:
-    #             modelname, result1, result2, result3, result4 = line
-    #             try:
-    #                 _, name, size = modelname.split("_")
-    #             except ValueError:
-    #                 _, name = modelname.split("_")
-    #                 size = "default"
-    #
-    #             outfile.write(",".join([name, size, result1, result2, result3, result4]))
-    #             outfile.write("\n")
+    with open(outdir +  lang + "_correlations.csv", "w") as outfile:
+        for category in all_results.keys():
+            outfile.write(category)
+            outfile.write("\n")
+            outfile.write("Model, Vocab_Size, NumSplits_RT, NumSplits_Acc, Chunkability_RT, Chunkability_Acc\n")
+            for line in all_results[category]:
+                modelname, result1, result2, result3, result4 = line
+                try:
+                    _, name, size = modelname.split("_")
+                except ValueError:
+                    _, name = modelname.split("_")
+                    size = "default"
+
+                outfile.write(",".join([name, size, result1, result2, result3, result4]))
+                outfile.write("\n")
 

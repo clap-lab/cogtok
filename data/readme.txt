@@ -1,4 +1,4 @@
-You need to obtain the following datasets: 
+If you run get_data.py, you download the following datasets:
 
 For training the tokenizers, we used sentences-files from the most recent 100k news subset from the Leipzig collection: https://wortschatz.uni-leipzig.de/en/download/
 
@@ -25,7 +25,6 @@ SWE: swe_news_2022_100K-sentences.txt
 OTHER:
 HBS: hbs_mixed_2014_100K-sentences.txt
 
-Download the files and put them into data/train using only the language identifier (e.g. eng.txt). 
 
 For evaluation, we used lexical decision data from the following sources:
 Dutch: http://crr.ugent.be/papers/dlp2_items.tsv
@@ -33,11 +32,8 @@ English: http://crr.ugent.be/blp/txt/blp-items.txt.zip
 French: https://static-content.springer.com/esm/art%3A10.3758%2FBRM.42.2.488/MediaObjects/Ferrand-BRM-2010.zip
 Spanish: https://figshare.com/articles/dataset/Lexical_decision_data/5924647
 
-The French and Spanish files require some pre-processing, run eval/preprocessing/preprocess_es_eval.py and preprocess_fr_eval.py. 
+For the French and Spanish files, we applied some pre-processing to aggregate the signals.
 
-Save the files in data/evel under the names "en.txt", "es.txt", "fr.txt", "nl.txt". 
-
-For the morphological analysis, we used data from morphynet: 
+For the morphological analysis, we used the derivational data from morphynet:
 https://github.com/kbatsuren/MorphyNet
 
-For each language, we save the derivational file. 

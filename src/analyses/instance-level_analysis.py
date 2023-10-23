@@ -95,9 +95,6 @@ for lang in langs:
             stdev = np.std(lengths)
             splitvariance.append([token, stdev, subtokens])
 
-
-
-
         splitsframe = pd.DataFrame(splitvariance, columns =["Stimulus",  "Stdev", "Subtokens"] )
         print(lang, category)
         splitsframe.nlargest(100, "Stdev").to_csv(resultpath +"instancelevel/"+ lang + "_" + category + "_highest_splitvariance.csv")

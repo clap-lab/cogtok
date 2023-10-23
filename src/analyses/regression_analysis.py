@@ -19,11 +19,6 @@ signal = "accuracy"
 
 def process_dataset(dataset, signal, model):
     measure = dataset[signal].astype(float).to_numpy()
-
-    # Alternative: Trying out a length baseline
-    # stimuli = dataset["spelling"].to_numpy()
-    # measure = np.asarray([len(x) for x in stimuli ])
-
     measure = measure.reshape(-1, 1)
 
     # focus on specific model
