@@ -3,13 +3,14 @@ import warnings
 from string import punctuation
 from tokenization_util import tokenize, Tokenizer
 
+
 def read_derivational(language):
 
     if len(language) != 3:
         raise ValueError("Morphynet uses three-letter language codes")
 
     # Set path
-    datadir = "../data/morphynet/" + language + "/"
+    datadir = "../data/morphynet2/" + language + "/"
     derivational_file = datadir + language + ".derivational.v1.tsv"
 
     # Set header
@@ -37,10 +38,11 @@ def read_inflectional(language):
     inflectional = pd.read_csv(inflectional_file, sep="\t", names=inflectional_header, keep_default_na=False)
     return inflectional
 
+
 def evaluate_derivational_coverage(language, vocab):
     derivational = read_derivational(language)
     counts = derivational["morpheme"].value_counts()
-    threshold = int(len(derivational) *0.001)
+    threshold = int(len(derivational) * 0.001)
     derivational_morphemes = set(derivational[derivational["morpheme"].map(counts)>threshold]["morpheme"])
     # print(threshold)
     # print("Number of derivational morphemes: " + str(len(derivational_morphemes)))
