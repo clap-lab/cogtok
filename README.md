@@ -1,6 +1,6 @@
 This repository contains the code for the following paper.<br>
 - Lisa Beinborn, Yuval Pinter (EMNLP 2023): <br>
-"Analyzing Cognitive Plausibility of Subword Tokenization"
+["Analyzing Cognitive Plausibility of Subword Tokenization"](http://arxiv.org/abs/2310.13348)
 
 Please check the paper for all the references and cite them appropriately when using this code. 
 
