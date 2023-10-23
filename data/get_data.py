@@ -5,6 +5,7 @@ import os
 import shutil
 from bs4 import BeautifulSoup as bs
 
+
 def preprocess_fr_eval_data():
     print("Pre-processing French lexical decision data")
     nonwords = pd.read_excel("eval/raw/Ferrand-BRM-2010/FLP-pseudowords.xls", index_col=None, header=0)
@@ -23,6 +24,7 @@ def preprocess_fr_eval_data():
     french_data = french_data.rename(columns={"item": "spelling"})
     mapped_data = french_data[["spelling", "lexicality", "rt", "accuracy"]]
     mapped_data.to_csv("eval/fr.txt", chunksize=1000, index=False, sep="\t")
+
 
 def preprocess_es_eval_data():
     from collections import defaultdict
@@ -65,7 +67,7 @@ def preprocess_es_eval_data():
         #     print(i, len(lexicality))
     assert (len(lexicality.keys()) == len(accuracies.keys()) == len(rts.keys()))
 
-    with open("eval/es.txt", "w") as outfile:
+    with open("eval/es.txt", "w", encoding="utf-8") as outfile:
         outfile.write("spelling\tlexicality\trt\taccuracy\n")
         for token in lexicality.keys():
 
@@ -81,6 +83,8 @@ def preprocess_es_eval_data():
             except TypeError as e:
                 print(e)
                 print(token, lex, rts[token], accuracies[token])
+
+
 def get_eval_data():
 
     # Get Dutch Data
@@ -119,22 +123,28 @@ def get_eval_data():
     print("Get Spanish lexical decision data")
     url = "https://figshare.com/ndownloader/files/11209613"
     r = requests.get(url)
-    open("eval/raw/es.txt", "w").write(r.text)
+    open("eval/raw/es.txt", "w", encoding="utf-8").write(r.text)
     preprocess_es_eval_data()
 
+
 def download_and_extract(url, outputdir, lang):
+    # check if already done
+    txtfname = outputdir + "/" + lang + ".txt"
+    if os.path.exists(txtfname):
+        return True
+
     print(url)
     response = requests.get(url, stream=True)
 
     if not response.status_code == 404:
-        langdir = outputdir  + lang
+        langdir = outputdir + lang
         os.makedirs(langdir, exist_ok=True)
         file = tarfile.open(fileobj=response.raw, mode="r|gz")
         file.extractall(path=langdir)
         print("Cleaning up file structure")
-        for dir in os.listdir(langdir):
-            path = langdir +"/" +  dir
-            print (path)
+        for d in os.listdir(langdir):
+            path = langdir + "/" + d
+            print(path)
             for file in os.listdir(path):
                 filepath = path + "/" + file
 
@@ -144,7 +154,7 @@ def download_and_extract(url, outputdir, lang):
 
                 else:
                     #print("renaming: " + filepath)
-                    os.rename(filepath, outputdir + "/" + lang + ".txt")
+                    os.rename(filepath, txtfname)
 
         shutil.rmtree(langdir, ignore_errors=True)
 
@@ -175,12 +185,12 @@ def get_derivational_data():
         if not lang == "README.md":
 
             filename = lang + ".derivational.v1.tsv"
-            rawpath = prefix + "blob/main/" + lang + "/" + filename  + "?raw=true
+            rawpath = prefix + "blob/main/" + lang + "/" + filename  + "?raw=true"
             print("Downloading from: " + rawpath)
             response = requests.get(rawpath)
             data = response.text
 
-            with open(outdir + filename, 'w') as file:
+            with open(outdir + filename, 'w', encoding="utf=8") as file:
                 file.write(data)
 
 
