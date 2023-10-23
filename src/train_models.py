@@ -10,7 +10,7 @@ def train(training_data,alg = "BPE", vocab_size= "10000", modeldir =""):
 
     modelfile = modeldir + "trained.json"
     trained_tokenizer.save(modelfile)
-    with open(modeldir + "vocabulary.txt", "w") as vocfile:
+    with open(modeldir + "vocabulary.txt", "w", encoding="utf-8") as vocfile:
         vocfile.write("\n".join(trained_tokenizer.get_vocab().keys()))
     return modelfile
 #
@@ -49,29 +49,30 @@ with open("config.yaml", "r") as f:
     os.makedirs(outdir, exist_ok=True)
 
 data = {}
-for language in languages:
-    print(language)
+for langnames in languages:
+    language_tr, language_eval = langnames
+    print(language_tr)
 
     # The parameters engine and quoting are required because the formatting of the sentences is a bit off
-    training_data = pd.read_csv(traindir + language + ".txt", delimiter="\t", engine='python', names = ["Index", "Sentence"], quoting = 3)
+    training_data = pd.read_csv(traindir + language_tr + ".txt", delimiter="\t", engine='python', names = ["Index", "Sentence"], quoting = 3)
     sentences = training_data["Sentence"].to_list()
-    data[language] = sentences
+    data[language_tr] = sentences
 
     for alg in algorithms:
         print("alg")
         for vocab_size in vocab_sizes:
             print(vocab_size)
 
-            modeldir= outdir +language +"/trained_models/" + alg +"_"  +str(vocab_size ) + "/"
+            modeldir= outdir + language_tr + "/trained_models/" + alg + "_" + str(vocab_size) + "/"
             os.makedirs(modeldir, exist_ok=True)
 
             print("start training")
-            modelfile = train(sentences, alg,vocab_size, modeldir)
+            modelfile = train(sentences, alg, vocab_size, modeldir)
             print("done training")
 
             print("start tokenizing")
-            evalfile = evaldir + language + ".txt"
-            tokenize_eval( modelfile, evalfile ,modeldir )
+            evalfile = evaldir + language_eval + ".txt"
+            tokenize_eval(modelfile, evalfile, modeldir)
 
 # # Optional: also train fourlingual model
 # for alg in algorithms:
