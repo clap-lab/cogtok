@@ -1,6 +1,6 @@
 This repository contains the code for the following paper.<br>
 - Lisa Beinborn, Yuval Pinter (EMNLP 2023): <br>
-["Analyzing Cognitive Plausibility of Subword Tokenization"](http://arxiv.org/abs/2310.13348)
+["Analyzing Cognitive Plausibility of Subword Tokenization"](https://aclanthology.org/2023.emnlp-main.272)
 
 Please check the paper for all the references and cite them appropriately when using this code. 
 
@@ -15,3 +15,25 @@ You can also work directly with our already trained models. They can be found in
 The plots from the paper can be found in *results/plots*.
 
 If you have questions, contact l.b\*\*nb\*\*n@vu.nl
+
+## Citation Format
+
+Please cite this work as:
+```
+@inproceedings{beinborn-pinter-2023-analyzing,
+    title = "Analyzing Cognitive Plausibility of Subword Tokenization",
+    author = "Beinborn, Lisa  and
+      Pinter, Yuval",
+    editor = "Bouamor, Houda  and
+      Pino, Juan  and
+      Bali, Kalika",
+    booktitle = "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing",
+    month = dec,
+    year = "2023",
+    address = "Singapore",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2023.emnlp-main.272",
+    pages = "4478--4486",
+}
+```
+
