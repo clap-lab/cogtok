@@ -37,7 +37,7 @@ def tokenize_eval(modelfile, evaldata, outdir):
 
 
 
-with open("config.yaml", "r") as f:
+with open("src/config.yaml", "r") as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
     print(config["vocab_size"])
     outdir = config["outdir"]

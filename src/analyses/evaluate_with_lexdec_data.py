@@ -3,8 +3,8 @@ import os
 from ast import literal_eval
 from scipy.stats import pearsonr, spearmanr, kendalltau
 
-evalpath = "../../data/eval/"
-resultpath = "../../results/"
+evalpath = "data/eval/"
+resultpath = "results/"
 outdir = resultpath + "results_overview/"
 
 
