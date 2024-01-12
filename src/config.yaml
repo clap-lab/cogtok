@@ -16,11 +16,11 @@ vocab_size:
   - 70000
 
 language:
-  - ["eng", "en-new"]
-  - ["nld", "nl"]
+  # - ["eng", "en-new"]
+  # - ["nld", "nl"]
   - ["spa", "es"]
   - ["fra", "fr"]
 
-traindir: "../data/train/"
-evaldir: "../data/eval/"
-outdir: "../results/"
+traindir: "train/"
+evaldir: "eval/"
+outdir: "results/"
