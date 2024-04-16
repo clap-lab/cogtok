@@ -91,24 +91,24 @@ def get_eval_data():
     # Note: this is not the most recent version of the dataset but it is the one we used.
     # Check here http://crr.ugent.be/programs-data/lexicon-projects for a more recent one with twice as many stimuli
 
-    print("Get Dutch lexical decision data")
-    url = "http://crr.ugent.be/dlp/txt/dlp-items.txt.zip"
-    r = requests.get(url)
-    z = zipfile.ZipFile(io.BytesIO(r.content))
-    src = "dlp-items.txt"
-    dest = "eval/nl.txt"
-    z.getinfo(src).filename = dest
-    z.extract(src)
+    # print("Get Dutch lexical decision data")
+    # url = "http://crr.ugent.be/dlp/txt/dlp-items.txt.zip"
+    # r = requests.get(url)
+    # z = zipfile.ZipFile(io.BytesIO(r.content))
+    # src = "dlp-items.txt"
+    # dest = "eval/nl.txt"
+    # z.getinfo(src).filename = dest
+    # z.extract(src)
 
-    # Get English Data
-    print("Get English lexical decision data")
-    url = "http://crr.ugent.be/blp/txt/blp-items.txt.zip"
-    r = requests.get(url)
-    z = zipfile.ZipFile(io.BytesIO(r.content))
-    src = "blp-items.txt"
-    dest = "eval/en-new.txt"
-    z.getinfo(src).filename = dest
-    z.extract(src)
+    # # Get English Data
+    # print("Get English lexical decision data")
+    # url = "http://crr.ugent.be/blp/txt/blp-items.txt.zip"
+    # r = requests.get(url)
+    # z = zipfile.ZipFile(io.BytesIO(r.content))
+    # src = "blp-items.txt"
+    # dest = "eval/en-new.txt"
+    # z.getinfo(src).filename = dest
+    # z.extract(src)
 
     # Get French Data
     print("Get French lexical decision data")

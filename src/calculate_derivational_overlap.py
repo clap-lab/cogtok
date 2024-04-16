@@ -11,7 +11,7 @@ languages = ["hun", "por", "cat", "fin", "ita", "rus", "ces", "fra", "eng", "mon
 # vary size of training data
 
 algs = ["BPE", "WPC", "UNI"]
-traindir = "../data/train/"
+traindir = "train/"
 seed = 42
 derivational_characteristics = {}
 
