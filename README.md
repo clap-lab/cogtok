@@ -18,18 +18,18 @@ pip install -r requirements.txt`
 ```bash
 python3 data/get_data.py
 ``````
-run
+- run
 ```bash
 python3 src/train_models.py
 ```
-(and optionally also `python src/calculate_derivational_overlap.py`, if you are interested)
+- (and optionally also `python src/calculate_derivational_overlap.py`, if you are interested)
 - run `python3 src/analyses/evaluate_with_lexdec_data.py` (and optionally also the other analyses in the directory )
 
 You can also work directly with our already trained models. They can be found in *results/trained/models*. 
 
 The plots from the paper can be found in *results/plots*.
 
-If you have questions, contact l.b\*\*nb\*\*n@vu.nl
+If you have questions, contact lisa.b\*\*nb\*\*n@uni-goettingen.de
 
 ## Citation Format
 
@@ -37,11 +37,8 @@ Please cite this work as:
 ```
 @inproceedings{beinborn-pinter-2023-analyzing,
     title = "Analyzing Cognitive Plausibility of Subword Tokenization",
-    author = "Beinborn, Lisa  and
-      Pinter, Yuval",
-    editor = "Bouamor, Houda  and
-      Pino, Juan  and
-      Bali, Kalika",
+    author = "Beinborn, Lisa and Pinter, Yuval",
+    editor = "Bouamor, Houda and Pino, Juan and Bali, Kalika",
     booktitle = "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing",
     month = dec,
     year = "2023",
