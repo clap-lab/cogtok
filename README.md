@@ -14,16 +14,20 @@ cd cogtok
 ```bash
 pip install -r requirements.txt`
 ```
-- run
+- Download the data: 
 ```bash
 python3 data/get_data.py
 ``````
-- run
+- Train the models: 
 ```bash
 python3 src/train_models.py
 ```
 - (and optionally also `python src/calculate_derivational_overlap.py`, if you are interested)
-- run `python3 src/analyses/evaluate_with_lexdec_data.py` (and optionally also the other analyses in the directory )
+- Evaluate with the lexical decision data:
+```bash
+`python3 src/analyses/evaluate_with_lexdec_data.py`
+```
+- Have a look at the other analyses in the directory, if you are interested. 
 
 You can also work directly with our already trained models. They can be found in *results/trained/models*. 
 
