@@ -92,17 +92,23 @@ def get_eval_data():
     # Check here http://crr.ugent.be/programs-data/lexicon-projects for a more recent one with twice as many stimuli
 
     # print("Get Dutch lexical decision data")
-    # url = "http://crr.ugent.be/dlp/txt/dlp-items.txt.zip"
-    # r = requests.get(url)
-    # z = zipfile.ZipFile(io.BytesIO(r.content))
+    # url1 = "https://web.archive.org/web/20230415114120/http://crr.ugent.be/papers/dlp2_trials0.tsv.zip"
+    # url2 = "https://web.archive.org/web/20230415114120/http://crr.ugent.be/papers/dlp2_trials1.tsv.zip"
+    # r1 = requests.get(url1)
+    # r2 = requests.get(url2)
+    # z1 = zipfile.ZipFile(io.BytesIO(r1.content))
+    # z2 = zipfile.ZipFile(io.BytesIO(r2.content))
     # src = "dlp-items.txt"
-    # dest = "eval/nl.txt"
-    # z.getinfo(src).filename = dest
-    # z.extract(src)
+    # dest1 = "eval/nl1.txt"
+    # dest2 = "eval/nl2.txt"
+    # z1.getinfo(src).filename = dest1
+    # z2.getinfo(src).filename = dest2
+    # z1.extract(src1)
+    # z2.extract(src2)
 
-    # # Get English Data
+    # Get English Data
     # print("Get English lexical decision data")
-    # url = "http://crr.ugent.be/blp/txt/blp-items.txt.zip"
+    # url = "https://osf.io/download/6tdnz/"
     # r = requests.get(url)
     # z = zipfile.ZipFile(io.BytesIO(r.content))
     # src = "blp-items.txt"
